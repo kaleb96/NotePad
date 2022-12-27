@@ -1,24 +1,28 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-        <li>Cancel</li>
+        <li v-if="tabStatus != 0" @click="tabStatus = 0">Cancel</li>
     </ul>
 
     <ul class="header-button-right">
-        <li>Next</li>
+        <li v-if="tabStatus == 1" @click="tabStatus++">Next</li>
+        <li v-if="tabStatus == 2" @click="publish">게시</li>   
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
   
-  <Container :postdata="postdata" />
+  <Container :postdata="postdata" :tabStatus="tabStatus" :filterName = "filterName" :url="url" @write="textArea = $event"/>
   <button @click="more">더보기</button>
 
-  <div class="footer">
-    <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+  <div class="footer" >
+    <ul class="footer-button-plus" v-if="tabStatus == 0">
+      <input @change="uploadImg" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
+
+
+
 </template>
 
 <script>
@@ -33,6 +37,10 @@ export default {
     return {
       postdata : postdata,
       checkCount : 1,
+      tabStatus : 0,
+      url : '',
+      textArea : '',
+      filterName : '',
     }
   },
   components: {
@@ -58,8 +66,40 @@ export default {
           this.checkCount = 1;
         })
       }
+    },
+
+    uploadImg(e) {
+      let file = e.target.files;
+      
+      // 이미지 업로드 후 이미지 필터링 페이지로 이동
+      this.tabStatus = 1;
+      this.url = URL.createObjectURL(file[0]);
+      console.log("url = " + this.url);
+    },
+
+    publish() {
+      var addPostData = {
+        name : "kaleb",
+        userImage : "https://placeimg.com/100/100/arch",
+        postImage : this.url,
+        likes: 32,
+        data : "Dec 27",
+        liked: false,
+        content : this.textArea,
+        filter : this.filterName
+      };
+
+      this.postdata.unshift(addPostData);
+      this.tabStatus = 0;
     }
+
+
   },
+  mounted() {
+    this.emitter.on( "filterNameIs", (a) => {
+      this.filterName = a;
+    });
+  }
 }
   
 </script>
