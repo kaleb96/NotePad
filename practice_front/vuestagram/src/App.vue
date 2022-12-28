@@ -12,17 +12,17 @@
   </div>
   
   <Container :postdata="postdata" :tabStatus="tabStatus" :filterName = "filterName" :url="url" @write="textArea = $event"/>
-  <button @click="more">더보기</button>
-
+  
   <div class="footer" >
     <ul class="footer-button-plus" v-if="tabStatus == 0">
       <input @change="uploadImg" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
-
-
-
+  
+  <p> {{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">더보기</button>
+  
 </template>
 
 <script>
@@ -46,6 +46,12 @@ export default {
   components: {
    Container,
   },
+  computed : {
+    now2() {
+      return new Date();
+    }
+  },
+
   methods : {
     more () {
       
@@ -91,8 +97,11 @@ export default {
 
       this.postdata.unshift(addPostData);
       this.tabStatus = 0;
-    }
+    },
 
+    now() {
+      return new Date();
+    }
 
   },
   mounted() {

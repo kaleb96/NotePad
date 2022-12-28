@@ -5,9 +5,9 @@
                 <span class="profile-name">{{ postdata.name }}</span>
             </div>
 
-            <div :class="postdata.filter + ' post-body'" :style="{ backgroundImage : `url(${postdata.postImage})`}"></div>
+            <div @click="$store.commit('addLikes')" :class="postdata.filter + ' post-body'" :style="{ backgroundImage : `url(${postdata.postImage})`}"></div>
             <div class="post-content">
-                <p>{{ postdata.likes }}</p>
+                <p>{{ $store.state.likes }}</p>
                 <p><strong>{{ postdata.name }}</strong> {{ postdata.content }} </p>
                 <p class="date"> {{ postdata.date }}</p>
             </div>
