@@ -8,10 +8,10 @@ public class Example_01 {
 
         boolean isNonAdult = true;
 
-        Map<String, Map<String, String>>mainMap = new LinkedHashMap<>();
+        Map<String, Map<String, String>> mainMap = new LinkedHashMap<>();
         Map<String, String> sideMap = new LinkedHashMap<>();
 
-        if(isNonAdult) { //미성년자
+        if (isNonAdult) { //미성년자
             mainMap.put("01", sideMap);
             sideMap.put("지우", "피카츄");
             sideMap.put("이슬이", "별가사리");

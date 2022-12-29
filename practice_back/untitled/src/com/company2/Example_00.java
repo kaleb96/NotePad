@@ -9,12 +9,12 @@ public class Example_00 {
         int num = sc.nextInt();
         int total = sc.nextInt();
 
-        int [] answer = new int[num];
+        int[] answer = new int[num];
 
         int nSum = num * (num + 1) / 2;
         int startNum = (total - nSum) / num;
 
-        for(int i = 1; i < num + 1; i++) {
+        for (int i = 1; i < num + 1; i++) {
             answer[i - 1] = i + startNum;
         }
 

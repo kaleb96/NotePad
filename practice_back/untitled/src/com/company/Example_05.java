@@ -10,10 +10,10 @@ public class Example_05 {
         int answer = 0, cnt = 1;
 
         n -= cnt;
-        while(n > 0) {
+        while (n > 0) {
             cnt++;
             n = n - cnt;
-            if(n%cnt == 0)
+            if (n % cnt == 0)
                 answer++;
         }
         System.out.println(answer + 1);
